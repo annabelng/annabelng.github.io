@@ -266,7 +266,7 @@ PLATFORMS
   x86_64-darwin-18
 
 DEPENDENCIES
-  github-pages (~> 215)
+  github-pages
   jekyll-feed (~> 0.12)
   jekyll-mentions (= 1.6.0)
   minima (~> 2.5)
