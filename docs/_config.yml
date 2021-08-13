@@ -24,16 +24,16 @@ author:
   avatar           : "/Users/annabelng/Personal Items/Personal/nice pics/croppedheadshot.jpg"
   bio              : "High School senior trying to tackle the world one line of code at a time"
   location         : "San Diego, CA"
-  email            : "a.h.ng952@gmail.com"
+  #email            : "a.h.ng952@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:a.h.ng952@gmail.com"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url: "https://github.com/annabelng"
+      url: "https://github.com/annabelng"
 
-email: a.h.ng952@gmail.com
+#email: a.h.ng952@gmail.com
 description:  # this means to ignore newlines until "baseurl:"
   High school senior trying to tackle the world one line of code at a time
 baseurl: "" # the subpath of your site, e.g. /blog
