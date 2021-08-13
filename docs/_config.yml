@@ -21,10 +21,8 @@
 title: Annabel Ng
 author:
   name             : "Annabel Ng"
-  avatar           : "/Users/annabelng/Personal Items/Personal/nice pics/croppedheadshot.jpg"
   bio              : "High School senior trying to tackle the world one line of code at a time"
   location         : "San Diego, CA"
-  #email            : "a.h.ng952@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
