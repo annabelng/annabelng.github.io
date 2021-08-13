@@ -28,7 +28,7 @@ twitter_username: aannabelng
 github_username:  annabelng
 
 # Build settings
-theme: minima
+theme: minimal-mistakes-jekyll
 plugins:
   - jekyll-feed
 
