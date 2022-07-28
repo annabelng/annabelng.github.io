@@ -5,9 +5,7 @@
 layout: home
 author_profile: true
 header:
-  image: '/assets/images/header.jpeg'
-
-hello this is a test
+  image: 'assets/images/header.jpeg'
 ---
 
 hello this is a test
