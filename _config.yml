@@ -3,9 +3,9 @@
 # -----------------------------------------------------------------------------
 
 title: blank # the website title (if blank, full name will be used instead)
-first_name: Annabel
-middle_name: H.
-last_name: Ng
+first_name: annabel
+middle_name: h.
+last_name: ng
 email: annabelng@berkeley.edu
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Welcome to Annabel's portfolio. 
@@ -67,11 +67,11 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 # Social integration
 # -----------------------------------------------------------------------------
 
-github_username: # your GitHub user name
+github_username: annabelng
 gitlab_username: # your GitLab user name
-twitter_username: # your Twitter handle
+twitter_username: aannabel_ng
 mastodon_username: # your mastodon instance+username in the format instance.tld/@username
-linkedin_username: # your LinkedIn user name
+linkedin_username: annabelng22
 telegram_username: # your Telegram user name
 scholar_userid: # your Google Scholar ID
 semanticscholar_id: # your Semantic Scholar ID
