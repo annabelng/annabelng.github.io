@@ -8,18 +8,12 @@ profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
-  address: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
 
 news: true  # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Hello! I'm Annabel, a first-year EECS major at UC Berkeley. I'm interested in applying machine learning to the healthcare space. Currently, I'm working with the Sirota Lab at UCSF on predicting preterm birth with microbiome data. Previously, I've worked as a digital strategy intern at the nonprofit [Give Essential](https://www.giveessential.org/) and StudentTech at the [UCSD Super Computer center](https://education.sdsc.edu/studenttech/). 
 
-Put your address / P.O. box / other info right below your picture. You can also disable any these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+When I'm not studying in Doe Library, you can find me curating playlists on [Spotify](https://open.spotify.com/user/wl2d8bv1f8n4h8p76jec96mg9?si=EPiCNc0JTbec1bWqhyGYUg), going on runs, or watching Studio Ghibli movies. Feel free to shoot me an [email](mailto:annabelng@berkeley.edu)!
