@@ -4,8 +4,8 @@
 
 title: blank # the website title (if blank, full name will be used instead)
 first_name: annabel
-middle_name: h.
-last_name: ng
+middle_name: 
+last_name:  ng
 email: annabelng@berkeley.edu
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Welcome to Annabel's portfolio. 
@@ -114,9 +114,9 @@ bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: al-folio # blog_name will be displayed in your blog page
-blog_nav_title: blog # your blog must have a title for it to be displayed in the nav bar
-blog_description: a simple whitespace theme for academics
+blog_name: Writings # blog_name will be displayed in your blog page
+blog_nav_title: Thoughts # your blog must have a title for it to be displayed in the nav bar
+blog_description: Random thoughts about books, food, and anything in between
 permalink: /blog/:year/:title/
 
 # Pagination
