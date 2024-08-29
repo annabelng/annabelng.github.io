@@ -7,14 +7,14 @@ nav: true
 nav_order: 5
 ---
 
-<b> Fall 2024 </b>
+<b> Fall 2024 (In progress)</b>
 - CS 189: Machine Learning
 - CS 161: Computer Security
 - ASTRO C10: Introduction to Astronomy
 
 <b> Spring 2024 </b>
-- EECS 127: Linear Optimization Models for Engineering
-- CS 61C: Computer Architecture 
+- EECS 127: Linear Optimization Models for Engineering ([Cheatsheet](../assets/pdf/127cheatsheet1.pdf))
+- CS 61C: Computer Architecture ([Cheatsheet](../assets/pdf/61cCheatsheet.pdf))
 - LING 100: Introduction to Linguistic Science
 - MCB C61: Brain, Mind, and Behavior
 
