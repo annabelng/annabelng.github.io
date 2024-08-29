@@ -4,9 +4,8 @@
   contents:
     - title: UC Berkeley
       institution: B.S. in Electrical Engineering and Computer Science
-      year: 2022-2025
+      year: 2022-2026
       description:
-        - GPA - 3.71
         - title: Clubs
           contents:
             - Machine Learning @ Berkeley
@@ -14,12 +13,19 @@
             - Association of Women in EECS
         - title: Coursework
           contents:
-            - Data Structures, Efficient Algorithms and Intractable Problems, Discrete Math and Probability, Structure and Interpretation of Computer Programs, Designing Information Devices and Systems I and II
+            - Machine Learning, Algorithms, Computer Security, Data Structures, Linear Optimization Models, Discrete Math and Probability, Structure and Interpretation of Computer Programs, Designing Information Devices and Systems I and II
         
-
 - title: Experience
   type: time_table
   contents:
+    - title: Machine Learning Engineering Intern
+      institution: Autodesk
+      year: May 2024 - Present
+      description:
+        - Developed a Wiki security screening pipeline using GPT-4 that processed over 15,000 pages to identify confidential information such as API keys, usernames/passwords, and IP hostnames
+        - Finetuned and deployed text classification models (DeBERTa and Llama3) using AWS Lambda to automatically route Jira tickets, reducing engineer overhead by 80% per ticket
+        - Selected among all Autodesk interns to demo both projects in a fireside chat with the Chief Information Officer
+    
     - title: Project Engineering Intern
       institution: Cubic Transportation Systems
       year: June 2023 - Aug 2023
@@ -36,13 +42,15 @@
         - Compare classification methods such as K-means, K-Nearest Neighbors (KNN), and high dimensional computing to evaluate effectiveness of convolutional sparse features
         - Invited to present research at Dean's Society event at Synopsys HQ
 
-    - title: Student Researcher
-      institution: Sirota Lab at UCSF
-      year: July 2021 - Sep 2022
-      description:
-        - Apply decision trees and K-Nearest neighbors models to predict preterm birth using microbiome data stratified by body site on a phylotype level
-        - Compare relevant bacteria identified by the model, such as Blautia and Ureaplasma, to current microbiome literature to determine validity of connection with pre-term birth
-      
+  
+- title: Publications
+  type: time_table
+  contents:
+    - year: 2024 
+      items: 
+        - C. Kymn*, S. Mazelet*, A. Ng, D. Kleyko, and B. Olshausen. Compositional Factorization of Visual Scenes with Convolutional Sparse Coding and Resonator Networks. In Proc. of Neuro Inspired Computational Elements (NICE) Conference
+  
+
 - title: Honors and Awards
   type: time_table
   contents:
@@ -52,17 +60,14 @@
     - year: 2023 
       items: 
         - Google Cloud Next Student Innovator
-    - year: 2021
-      items: 
-        - 1st Place in Computer Science Category at Greater San Diego Science and Engineering Fair
 
 - title: Projects
   type: nested_list
   contents:
+    - title: Provable Robustness for Deep Classifiers
+      items: 
+        - Implemented the Fast Gradient Signed Method (FGSM) adversarial approximation attack on a trained MNIST classifier and created a robust training regime by optimizing over the non-convex dual value
+      
     - title: Generating New Yorker Cartoons with Stable Diffusion 
       items: 
         - Finetuned stable diffusion using Dreambooth to output images in the style of New Yorker cartoons
-
-    - title: Improving Deep Neural Clinical Prediction Models with Textual Data Augmentation
-      items: 
-        - Applied textual data augmentation to improve the robustness of Clincial BERT, a finetuned language model adapated to clinical notes, for predicting 30-day hospital readmissions
