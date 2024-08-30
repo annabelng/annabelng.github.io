@@ -5,7 +5,7 @@ permalink: /
 
 profile:
   align: right
-  image: IMG_0670.JPG
+  image: pfp.jpg
   image_circular: true # crops the image to make it circular
 
 news: true  # includes a list of news items
