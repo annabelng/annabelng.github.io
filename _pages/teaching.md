@@ -7,9 +7,16 @@ nav: true
 nav_order: 5
 ---
 
-<b> Fall 2024 (In progress)</b>
-- CS 189: Machine Learning
-- CS 161: Computer Security
+<b> Spring 2025 (In Progress)</b>
+- CS 162: Operating Systems
+- CS 184: Computer Graphics
+- COGSCI 190: Models of Decision-Making From Brain to Behavior
+- UGBA 135: Personal Finance
+
+
+<b> Fall 2024</b>
+- CS 189: Machine Learning ([Cheatsheet](../assets/pdf/189cheatsheet.pdf))
+- CS 161: Computer Security ([Cheatsheet](../assets/pdf/161cheatsheet.pdf))
 - ASTRO C10: Introduction to Astronomy
 
 <b> Spring 2024 </b>
