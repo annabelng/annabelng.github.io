@@ -19,8 +19,13 @@ jobs:
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0.2'
+        ruby-version: '3.3.5'
         bundler-cache: true
+        
+    - name: Install dependencies (Ruby)
+      run: |
+        bundle install  # Install the Ruby gems from Gemfile and Gemfile.lock
+
     - name: Install deps
       run: |
         npm install -g mermaid.cli
