@@ -7,11 +7,14 @@ nav: true
 nav_order: 5
 ---
 
-<b> Spring 2025 (In Progress)</b>
-- CS 162: Operating Systems
-- CS 184: Computer Graphics
+<b> Fall 2025</b>
+- Currently on a gap semester to intern at Google!
+
+<b> Spring 2025</b>
+- CS 162: Operating Systems ([Cheatsheet](../assets/pdf/162cheatsheet.pdf))
+- CS 184: Computer Graphics ([Cheatsheet](../assets/pdf/184cheatsheet.pdf) & [Content Review](../assets/pdf/184ContentReview.pdf))
 - COGSCI 190: Models of Decision-Making From Brain to Behavior
-- UGBA 135: Personal Finance
+- UGBA 135: Personal Finance ([Content Review](../assets/pdf/Ugba135.pdf))
 
 
 <b> Fall 2024</b>

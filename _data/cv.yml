@@ -8,6 +8,7 @@
       description:
         - title: Clubs
           contents:
+            - Accel Scholars
             - Machine Learning @ Berkeley
             - Society of Women Engineers
             - Association of Women in EECS
@@ -18,30 +19,35 @@
 - title: Experience
   type: time_table
   contents:
-    - title: Machine Learning Engineering Intern
-      institution: Autodesk
+    - title: Google
+      institution: Software Engineering Intern
+      year: Aug 2025 - Present
+      description:
+        - Integrating JAX-based quantized ML models with YouTube's custom accelerator ASIC (Argos) for video transcoding
+          by converting models into graphical representations for silicon protobufs and running quantization aware training
+
+    - title: Microsoft
+      institution: Software Engineering Intern
+      year: May 2025 - Aug 2025
+      description:
+        - Enhanced one of 9 official AI Foundry customer templates by integrating a multi-agent conversational framework via
+          Semantic Kernel, leveraging custom agents with Azure AI Translation and Azure Language Services (CLU, CQA)
+        - Open-sourced contributions on GitHub (60+ stars, 50+ forks) with 400+ customer provisions on Azure in a month
+        - Collaborated with the Semantic Kernel team to identify and fix bugs in agent orchestration techniques
+    
+    - title: Autodesk
+      institution: Machine Learning Engineering Intern
       year: May 2024 - Present
       description:
         - Developed a Wiki security screening pipeline using GPT-4 that processed over 15,000 pages to identify confidential information such as API keys, usernames/passwords, and IP hostnames
         - Finetuned and deployed text classification models (DeBERTa and Llama3) using AWS Lambda to automatically route Jira tickets, reducing engineer overhead by 80% per ticket
         - Selected among all Autodesk interns to demo both projects in a fireside chat with the Chief Information Officer
     
-    - title: Project Engineering Intern
-      institution: Cubic Transportation Systems
+    - title: Cubic Transportation Systems
+      institution: Software Engineering Intern
       year: June 2023 - Aug 2023
       description:
         - Developed a full-stack web application for the Boston MBTA transportation system using Flask and React to monitor over 300 devices, as well as various sales and ridership statistics
-        - Deployed a separate web app for tracking the location of over 100 active bus and subway trains across 6 different MBTA transit lines with real-time refresh every 2 minutes
-        - Configured devices in the testing environment, identified key requirements for test cases, and executed stress testing for the coin and bills cashbox in the fare vending machines
-      
-    - title: Undergraduate Machine Learning Researcher
-      institution: Redwood Center for Theoretical Neuroscience
-      year: Oct 2022 - Present
-      description:
-        - Optimize a convolutional sparse coding model on MNIST and incorporate computational features to improve memory usage and efficiency in image factorization tasks
-        - Compare classification methods such as K-means, K-Nearest Neighbors (KNN), and high dimensional computing to evaluate effectiveness of convolutional sparse features
-        - Invited to present research at Dean's Society event at Synopsys HQ
-
   
 - title: Publications
   type: time_table
@@ -64,6 +70,12 @@
 - title: Projects
   type: nested_list
   contents:
+    - title: N3CTAR - Neural 3D Cellular Tessellated Automata Rendering
+      items: 
+        - Developed a 3D triangle mesh to 3D voxel pipeline utilizing Barycentric coordinates and FloodFill
+        - Implemented a real-time interactive renderer for a trained 3D convolutional neural network (simulating neural cellular
+          automata) to enable user-driven voxel destruction and regeneration    
+
     - title: Provable Robustness for Deep Classifiers
       items: 
         - Implemented the Fast Gradient Signed Method (FGSM) adversarial approximation attack on a trained MNIST classifier and created a robust training regime by optimizing over the non-convex dual value
