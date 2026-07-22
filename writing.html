@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script>(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing — Annabel Ng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:  #F4EFE5; --ink: #272019; --blue: #4F7B95;
+      --line:   rgba(39, 32, 25, 0.08); --halo: rgba(244, 239, 229, 0.9);
+    }
+    html[data-theme="dark"] {
+      --paper:  #0B1C35; --ink: #E4DCCC; --blue: #82BDD4;
+      --line:   rgba(228, 220, 204, 0.08); --halo: rgba(11, 28, 53, 0.9);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper); color: var(--ink);
+      font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px;
+      overflow-x: hidden; transition: background 0.55s ease, color 0.55s ease;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+      opacity: 0.055; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.38' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23p)'/%3E%3C/svg%3E");
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      opacity: 0.032; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    html[data-theme="dark"] body::before { mix-blend-mode: screen; opacity: 0.035; }
+    html[data-theme="dark"] body::after  { mix-blend-mode: screen; opacity: 0.022; }
+
+    /* ── CURSOR ── */
+    * { cursor: none !important; }
+    .cursor-dot { position: fixed; width: 6px; height: 6px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); opacity: 0.65; transition: width 0.2s, height 0.2s, opacity 0.2s, background 0.55s; }
+    .cursor-ring { position: fixed; width: 28px; height: 28px; border: 1px solid var(--ink); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); opacity: 0.22; transition: width 0.35s cubic-bezier(0.25,0.46,0.45,0.94), height 0.35s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.25s, border-color 0.55s; }
+    .cursor-ring.hov { width: 44px; height: 44px; opacity: 0.14; }
+    .cursor-dot.hov  { width: 4px; height: 4px; opacity: 0.35; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.7rem 3.5rem; display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(244,239,229,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: background 0.55s ease; }
+    html[data-theme="dark"] nav { background: rgba(11,28,53,0.85); }
+    .logo { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 1rem; letter-spacing: 0.06em; text-decoration: none; color: var(--ink); transition: color 0.55s; }
+    .nav-right { display: flex; align-items: center; gap: 2.6rem; }
+    .nav-links { list-style: none; display: flex; gap: 2.6rem; }
+    .nav-links a { font-size: 0.67rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: var(--ink); opacity: 0.38; transition: opacity 0.2s, color 0.55s; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .theme-toggle { background: none; border: 1px solid currentColor; color: var(--ink); border-radius: 50%; width: 28px; height: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.5; transition: color 0.55s, opacity 0.2s; }
+    .theme-toggle:hover { opacity: 0.9; }
+    .theme-toggle svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; }
+    .icon-moon { display: block; } .icon-sun { display: none; }
+    html[data-theme="dark"] .icon-moon { display: none; }
+    html[data-theme="dark"] .icon-sun  { display: block; }
+
+    /* ── PAGE HERO ── */
+    .page-hero { height: 44vh; min-height: 260px; position: relative; overflow: hidden; background: var(--paper); transition: background 0.55s ease; }
+    .page-hero-content { position: absolute; bottom: 3rem; left: 0; right: 0; width: 820px; max-width: 100%; margin: 0 auto; padding: 0 3.5rem; z-index: 10; filter: drop-shadow(0 0 24px var(--halo)); opacity: 0; animation: up 1s 0.3s forwards; transition: filter 0.55s; }
+    .page-label { font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; opacity: 0.36; margin-bottom: 0.7rem; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.6rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; color: var(--ink); transition: color 0.55s; }
+    .page-title em { font-style: italic; color: var(--blue); transition: color 0.55s; }
+    @keyframes up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ════════════════════════════════════════════════
+       LIST VIEW — shown when no post is open
+       ════════════════════════════════════════════════ */
+    #list-view { display: block; }
+    #post-view { display: none; }
+
+    main { max-width: 820px; margin: 0 auto; padding: 5rem 3.5rem 8rem; }
+
+    .writing-intro { margin-bottom: 4rem; border-bottom: 1px solid var(--line); padding-bottom: 3.5rem; }
+    .writing-intro p { font-size: 1.05rem; line-height: 1.85; opacity: 0.65; max-width: 58ch; }
+
+    /* Post list */
+    .post-list { list-style: none; }
+
+    .post-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 2.5rem;
+      padding: 2.6rem 0;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .post-item:first-child { border-top: 1px solid var(--line); }
+    .post-item:hover { opacity: 0.75; }
+
+    .post-date {
+      font-size: 0.68rem; letter-spacing: 0.06em;
+      opacity: 0.35; padding-top: 0.3rem;
+      transition: color 0.55s;
+    }
+    .post-body {}
+    .post-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+      line-height: 1.15; letter-spacing: -0.01em;
+      color: var(--ink); margin-bottom: 0.7rem;
+      transition: color 0.55s;
+    }
+    .post-excerpt {
+      font-size: 0.91rem; line-height: 1.75;
+      opacity: 0.54; max-width: 54ch;
+      margin-bottom: 0.8rem;
+    }
+    .post-meta {
+      font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--blue);
+      opacity: 0.6; display: flex; align-items: center; gap: 1rem;
+      transition: color 0.55s;
+    }
+    .post-read { display: flex; align-items: center; gap: 0.4rem; }
+    .post-read::after { content: '→'; }
+
+    /* ════════════════════════════════════════════════
+       POST VIEW — shown when reading a single post
+       ════════════════════════════════════════════════ */
+    #post-view main {
+      max-width: 820px;
+    }
+
+    .post-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink); opacity: 0.38; padding: 0;
+      margin-bottom: 3.5rem;
+      transition: opacity 0.2s, color 0.55s;
+    }
+    .post-back::before { content: '←'; }
+    .post-back:hover { opacity: 0.9; }
+
+    .post-header { margin-bottom: 3rem; }
+    .post-header .post-date { display: block; margin-bottom: 1rem; }
+    .post-header .post-title {
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      margin-bottom: 0;
+    }
+
+    .post-content {
+      font-size: 1.01rem;
+      line-height: 1.9;
+      opacity: 0.72;
+    }
+    .post-content p { margin-bottom: 1.5rem; }
+    .post-content p:last-child { margin-bottom: 0; }
+    .post-content h2 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: 1.5rem; letter-spacing: -0.01em;
+      color: var(--ink); opacity: 1;
+      margin: 2.5rem 0 1rem; line-height: 1.2;
+      transition: color 0.55s;
+    }
+    .post-content em { font-style: italic; color: var(--blue); opacity: 1; transition: color 0.55s; }
+    .post-content blockquote {
+      border-left: 2px solid var(--blue);
+      padding-left: 1.5rem; margin: 2rem 0;
+      opacity: 0.65; font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 1.4rem 1.5rem; }
+      main { padding: 4rem 1.5rem 6rem; }
+      .page-hero-content { padding: 0 1.5rem; }
+      .post-item { grid-template-columns: 1fr; gap: 0.3rem; }
+      .post-date { margin-bottom: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <nav>
+    <a class="logo" href="annabel-landing.html">Annabel Ng</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="writing.html" class="active">Writing</a></li>
+        <li><a href="mailto:annabelng@berkeley.edu">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════ LIST VIEW ══════════════ -->
+  <div id="list-view">
+    <section class="page-hero">
+      <div class="page-hero-content">
+        <p class="page-label">Essays &amp; reflections</p>
+        <h1 class="page-title"><em>Writing</em></h1>
+      </div>
+    </section>
+
+    <main>
+      <div class="writing-intro">
+        <p>Occasional writing on technology, creativity, and the texture of daily life. I'm interested in what it means to make things — as an engineer, as a designer, and as a person trying to stay curious.</p>
+      </div>
+
+      <ul class="post-list">
+
+        <li class="post-item" onclick="openPost('berkeley')">
+          <span class="post-date">Jun 2025</span>
+          <div class="post-body">
+            <h2 class="post-title">Four years at Berkeley</h2>
+            <p class="post-excerpt">A reflection on what it actually felt like to study EECS at one of the most intense places in the world — the things I learned, the things I wish I'd done differently, and what I'm carrying forward.</p>
+            <div class="post-meta">
+              <span class="post-read">8 min read</span>
+            </div>
+          </div>
+        </li>
+
+        <li class="post-item" onclick="openPost('creativity')">
+          <span class="post-date">May 2025</span>
+          <div class="post-body">
+            <h2 class="post-title">On creativity in free time</h2>
+            <p class="post-excerpt">Why is it so hard to make things just for yourself? I've been thinking about the strange paralysis that sets in when there are no constraints, no deadlines, no one to ship to.</p>
+            <div class="post-meta">
+              <span class="post-read">5 min read</span>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </main>
+  </div>
+
+  <!-- ══════════════ POST VIEW ══════════════ -->
+  <div id="post-view">
+    <div style="height: 5.5rem;"></div><!-- nav spacer -->
+    <main id="post-content-area"></main>
+  </div>
+
+  <footer id="site-footer" style="padding: 2rem 3.5rem; display: flex; justify-content: space-between; font-size: 0.67rem; letter-spacing: 0.07em; opacity: 0.28; border-top: 1px solid var(--line);">
+    <span>© 2025 Annabel Ng</span>
+    <ul style="list-style:none;display:flex;gap:1.8rem;">
+      <li><a href="https://github.com" style="color:inherit;text-decoration:none;">GitHub</a></li>
+      <li><a href="https://linkedin.com" style="color:inherit;text-decoration:none;">LinkedIn</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // ── Theme toggle ─────────────────────────────────────
+    const html = document.documentElement;
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // ── Post data ────────────────────────────────────────
+    const posts = {
+      berkeley: {
+        date: 'June 2025',
+        readTime: '8 min read',
+        title: 'Four years at Berkeley',
+        content: `
+          <p>I graduated in May. It still doesn't feel real.</p>
+          <p>Four years of EECS at Berkeley is hard to summarize — not because nothing happened, but because too much did. The person who started in 2021, nervous and unsure what computer science actually was beyond a vague sense that it would be useful, is almost unrecognizable to me now.</p>
+          <h2>What the curriculum actually teaches you</h2>
+          <p>The coursework is famously brutal. What I didn't expect was how much the difficulty was beside the point. The real thing Berkeley teaches is <em>how to think about hard problems</em> — not any specific algorithm or system, but the posture of sitting with something confusing and not immediately giving up on it.</p>
+          <p>CS 61B taught me to care about abstraction. 61C made the machine feel real for the first time. 170 showed me what mathematical elegance looks like in code. And 189 — machine learning — opened something I'm still chasing: the idea that you can teach a system to see.</p>
+          <blockquote>The best courses weren't the ones where I learned the most content. They were the ones that changed how I looked at everything else.</blockquote>
+          <h2>What I wish I'd done differently</h2>
+          <p>I would have spent less time optimizing and more time exploring. Early on I was obsessed with doing everything right — taking the correct courses, building the right résumé, finding the right internship. It worked, in a narrow sense. But I missed a lot of things that didn't fit the plan.</p>
+          <p>I wish I'd taken more humanities courses. I wish I'd started writing earlier. I wish I'd spent more time in the art studios and less time in the libraries.</p>
+          <h2>What I'm carrying forward</h2>
+          <p>An appetite for visual problems. A belief that software can be beautiful. And a deep unease with the gap between what technology is capable of and what it actually does for people.</p>
+          <p>Those feel like enough to keep working on.</p>
+        `
+      },
+      creativity: {
+        date: 'May 2025',
+        readTime: '5 min read',
+        title: 'On creativity in free time',
+        content: `
+          <p>For most of university, I told myself I'd make things for fun once the pressure let up. Once the semester ended. Once the internship was done. Once I graduated.</p>
+          <p>Then I graduated. And I found myself sitting in front of a blank canvas — metaphorically, but also literally, at one point — completely stuck.</p>
+          <h2>The paradox of unconstrained time</h2>
+          <p>Constraints are generative. Deadlines, specifications, users who need something — these are irritating, but they also give you something to push against. They answer the first and hardest question: <em>what should I make?</em></p>
+          <p>Free time removes the constraint. And suddenly the question is open again, and it turns out open questions are terrifying. The blank page isn't neutral. It's demanding. It's asking you to justify the whole endeavor before you've started.</p>
+          <blockquote>The hardest part of creative work, I've come to think, is not the making. It's the permission-giving. Allowing yourself to make something imperfect, incomplete, just because you wanted to.</blockquote>
+          <h2>What I've been trying instead</h2>
+          <p>Recently I've been trying to lower the stakes deliberately. Small sketches. Short pieces. Things that don't need to become anything. This site is part of that — a place to put things that aren't finished, but are honest.</p>
+          <p>The goal isn't to be productive. It's to stay in practice. To keep the muscle warm. To remember what it feels like to make something just for yourself, without anyone watching.</p>
+          <p>I don't know if it's working yet. But it feels better than waiting.</p>
+        `
+      }
+    };
+
+    // ── Post navigation ──────────────────────────────────
+    function openPost(id) {
+      const post = posts[id];
+      if (!post) return;
+
+      document.getElementById('list-view').style.display = 'none';
+      document.getElementById('post-view').style.display = 'block';
+      window.scrollTo(0, 0);
+
+      document.getElementById('post-content-area').innerHTML = `
+        <button class="post-back" onclick="closePost()">All writing</button>
+        <header class="post-header">
+          <span class="post-date">${post.date} &nbsp;·&nbsp; ${post.readTime}</span>
+          <h1 class="post-title">${post.title}</h1>
+        </header>
+        <article class="post-content">${post.content}</article>
+      `;
+    }
+
+    function closePost() {
+      document.getElementById('post-view').style.display = 'none';
+      document.getElementById('list-view').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    // ── Custom cursor ─────────────────────────────────────
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function loop() {
+      rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { dot.classList.add('hov'); ring.classList.add('hov'); });
+      el.addEventListener('mouseleave', () => { dot.classList.remove('hov'); ring.classList.remove('hov'); });
+    });
+
+  </script>
+</body>
+</html>

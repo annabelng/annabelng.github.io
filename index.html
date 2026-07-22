@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <script>(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Annabel Ng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Theme tokens ───────────────────────────────── */
+    :root {
+      --paper:       #F4EFE5;
+      --ink:         #272019;
+      --blue:        #4F7B95;
+      --line:        rgba(39, 32, 25, 0.08);
+      --halo:        rgba(244, 239, 229, 0.9);
+      --photo-ring:  rgba(79, 123, 149, 0.22);
+      --photo-glow:  rgba(255, 248, 215, 0.50);
+    }
+    html[data-theme="dark"] {
+      --paper:       #0B1C35;
+      --ink:         #E4DCCC;
+      --blue:        #82BDD4;
+      --line:        rgba(228, 220, 204, 0.08);
+      --halo:        rgba(11, 28, 53, 0.9);
+      --photo-ring:  rgba(130, 189, 212, 0.25);
+      --photo-glow:  rgba(72, 130, 195, 0.38);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      overflow-x: hidden;
+      transition: background 0.55s ease, color 0.55s ease;
+    }
+
+    /* ── Paper texture — adapts to theme ───────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.055;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.38' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='600' height='600' filter='url(%23p)'/%3E%3C/svg%3E");
+      transition: opacity 0.55s ease;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.032;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      transition: opacity 0.55s ease;
+    }
+    /* In dark mode, screen blend adds visible texture on dark bg */
+    html[data-theme="dark"] body::before { mix-blend-mode: screen; opacity: 0.035; }
+    html[data-theme="dark"] body::after  { mix-blend-mode: screen; opacity: 0.022; }
+
+    /* ── CURSOR ── */
+    * { cursor: none !important; }
+    .cursor-dot { position: fixed; width: 6px; height: 6px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); opacity: 0.65; transition: width 0.2s, height 0.2s, opacity 0.2s, background 0.55s; }
+    .cursor-ring { position: fixed; width: 28px; height: 28px; border: 1px solid var(--ink); border-radius: 50%; pointer-events: none; z-index: 99998; transform: translate(-50%,-50%); opacity: 0.22; transition: width 0.35s cubic-bezier(0.25,0.46,0.45,0.94), height 0.35s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.25s, border-color 0.55s; }
+    .cursor-ring.hov { width: 44px; height: 44px; opacity: 0.14; }
+    .cursor-dot.hov  { width: 4px; height: 4px; opacity: 0.35; }
+
+    /* ── NAV ──────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1.7rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 500;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: var(--ink);
+      opacity: 0;
+      animation: up 0.9s 0.1s forwards;
+      transition: color 0.55s ease;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2.6rem;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2.6rem;
+    }
+    .nav-links li { opacity: 0; animation: up 0.9s forwards; }
+    .nav-links li:nth-child(1) { animation-delay: 0.25s; }
+    .nav-links li:nth-child(2) { animation-delay: 0.35s; }
+    .nav-links li:nth-child(3) { animation-delay: 0.45s; }
+    .nav-links li:nth-child(4) { animation-delay: 0.55s; }
+    .nav-links li:nth-child(5) { animation-delay: 0.65s; }
+
+    .nav-links a {
+      font-size: 0.67rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      opacity: 0.38;
+      transition: opacity 0.2s, color 0.55s ease;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* Theme toggle — minimal circle button */
+    .theme-toggle {
+      background: none;
+      border: 1px solid currentColor;
+      color: var(--ink);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      animation: up 0.9s 0.65s forwards;
+      transition: color 0.55s ease, border-color 0.55s ease, opacity 0.2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { opacity: 0.9 !important; }
+    .theme-toggle svg {
+      width: 12px; height: 12px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.5; stroke-linecap: round;
+      transition: opacity 0.3s;
+    }
+    /* Show sun in dark mode, moon in light mode */
+    .icon-moon { display: block; }
+    .icon-sun  { display: none;  }
+    html[data-theme="dark"] .icon-moon { display: none;  }
+    html[data-theme="dark"] .icon-sun  { display: block; }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    #water-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: opacity 0.55s ease;
+    }
+
+    /* Two-column layout */
+    .hero-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Reduced top padding — just clear the nav */
+      padding: clamp(3rem, 5vw, 4.5rem) clamp(2rem, 5vw, 4rem) 3rem;
+      gap: clamp(2.5rem, 5vw, 6rem);
+      z-index: 10;
+      filter: drop-shadow(0 0 32px var(--halo));
+      opacity: 0;
+      animation: up 1.2s 0.5s forwards;
+      transition: filter 0.55s ease;
+    }
+
+    /* ── Left column ── */
+    .hero-left {
+      flex: 0 0 auto;
+      width: clamp(220px, 38vw, 460px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3rem, 6.5vw, 7.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      transition: color 0.55s ease;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--blue);
+      display: block;
+      transition: color 0.55s ease;
+    }
+
+    .hero-desc {
+      margin-top: 2.2rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.36;
+      transition: color 0.55s ease;
+    }
+
+    .hero-bio {
+      margin-top: 2.8rem;
+    }
+    .hero-bio p {
+      line-height: 1.82;
+      opacity: 0.58;
+      font-size: 0.93rem;
+    }
+
+    .bio-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.8rem;
+      margin-top: 1.8rem;
+    }
+    .bio-links a {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      opacity: 0.34;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 1px;
+      transition: opacity 0.2s, border-color 0.2s, color 0.55s ease;
+    }
+    .bio-links a:hover { opacity: 0.9; border-color: rgba(39,32,25,0.3); }
+    html[data-theme="dark"] .bio-links a:hover { border-color: rgba(228,220,204,0.3); }
+
+    /* ── Right column ── */
+    .hero-right {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-photo {
+      width: clamp(160px, 28vw, 380px);
+      height: clamp(160px, 28vw, 380px);
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px var(--photo-ring),
+        0 0 48px var(--photo-glow);
+      position: relative;
+      transition: box-shadow 0.55s ease;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 12%;
+      display: block;
+    }
+
+    .hero-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(
+        ellipse at 40% 35%,
+        rgba(255, 252, 232, 0.9) 0%,
+        rgba(230, 218, 195, 0.8) 45%,
+        rgba(200, 185, 162, 0.6) 100%
+      );
+      transition: background 0.55s ease;
+    }
+    html[data-theme="dark"] .hero-photo-placeholder {
+      background: radial-gradient(
+        ellipse at 40% 35%,
+        rgba(60, 110, 175, 0.9) 0%,
+        rgba(25, 65, 120, 0.85) 45%,
+        rgba(11, 28, 53, 0.95) 100%
+      );
+    }
+    .hero-photo-placeholder span {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      color: var(--ink);
+    }
+
+    /* ── Hint ── */
+    .hero-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-size: 0.60rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0;
+      z-index: 10;
+      animation: up 1s 1.6s forwards;
+      transition: color 0.55s ease;
+    }
+    .hint-line {
+      width: 38px;
+      height: 1px;
+      background: var(--ink);
+      opacity: 0.28;
+      transform-origin: left;
+      animation: grow 2.5s 1.6s ease-in-out infinite alternate;
+    }
+    @keyframes grow {
+      from { transform: scaleX(0.4); opacity: 0.12; }
+      to   { transform: scaleX(1);   opacity: 0.40; }
+    }
+
+    /* ── Narrow screens ── */
+    @media (max-width: 720px) {
+      .hero-inner {
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        padding: 5.5rem 2rem 2rem;
+        gap: 2rem;
+        overflow-y: auto;
+      }
+      .hero-left {
+        width: min(100%, 420px);
+        align-items: flex-start;
+      }
+      .hero-name { font-size: clamp(2.8rem, 10vw, 5rem); }
+      .hero-photo {
+        width: clamp(130px, 38vw, 200px);
+        height: clamp(130px, 38vw, 200px);
+      }
+    }
+
+    /* ── FOOTER ───────────────────────────────────── */
+    footer {
+      padding: 2rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.67rem;
+      letter-spacing: 0.07em;
+      opacity: 0.28;
+      border-top: 1px solid var(--line);
+      transition: border-color 0.55s ease;
+    }
+    .footer-links { list-style: none; display: flex; gap: 1.8rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a class="logo" href="#">Annabel Ng</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="mailto:annabelng@berkeley.edu">Contact</a></li>
+      </ul>
+      <!-- Theme toggle: shows moon in light mode, sun in dark mode -->
+      <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+        <!-- Moon icon (shown in light mode — click to go dark) -->
+        <svg class="icon-moon" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <!-- Sun icon (shown in dark mode — click to go light) -->
+        <svg class="icon-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1"  x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22"  x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1"  y1="12" x2="3"  y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <canvas id="water-canvas"></canvas>
+
+    <div class="hero-inner">
+
+      <!-- Left: name + bio -->
+      <div class="hero-left">
+        <h1 class="hero-name">
+          Annabel
+          <em>Ng</em>
+        </h1>
+        <p class="hero-desc">Machine Learning &nbsp;·&nbsp; Design</p>
+        <div class="hero-bio">
+          <p>Software engineer at YouTube and UC Berkeley EECS graduate. I've interned on YouTube's Argos hardware accelerator team, Microsoft's CoreAI team, and on machine learning at Autodesk. I'm drawn to using ML to tackle challenging visual problems — and to the craft of design as a way to make things more intuitive and beautiful.</p>
+          <ul class="bio-links">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Resume</a></li>
+            <li><a href="#">annabelng@berkeley.edu</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: circular photo -->
+      <div class="hero-right">
+        <div class="hero-photo">
+          <img src="annabel.jpeg" alt="Annabel Ng" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-hint">
+      <div class="hint-line"></div>
+      <span>move for light</span>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <span>© 2025 Annabel Ng</span>
+    <ul class="footer-links">
+      <li><a href="#">GitHub</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">annabelng@berkeley.edu</a></li>
+    </ul>
+  </footer>
+
+  <script>
+  // ── Theme toggle ─────────────────────────────────────
+  const html        = document.documentElement;
+  const themeToggle = document.getElementById('theme-toggle');
+
+  themeToggle.addEventListener('click', () => {
+    const dark = html.getAttribute('data-theme') === 'dark';
+    const next = dark ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // ── Custom cursor ─────────────────────────────────────
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { dot.classList.add('hov'); ring.classList.add('hov'); });
+    el.addEventListener('mouseleave', () => { dot.classList.remove('hov'); ring.classList.remove('hov'); });
+  });
+
+  // ═══════════════════════════════════════════════════════
+  //  KOMOREBI — ambient dappled light across the whole hero.
+  //
+  //  Light mode: warm cream patches on paper.
+  //  Dark mode:  cool blue patches on deep navy.
+  //  Moving the cursor parallax-shifts the whole field.
+  // ═══════════════════════════════════════════════════════
+  (() => {
+    const canvas = document.getElementById('water-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    new ResizeObserver(resize).observe(canvas.parentElement);
+
+    const rng = (lo, hi) => lo + Math.random() * (hi - lo);
+
+    const patches = Array.from({ length: 18 }, () => ({
+      nx: rng(0.02, 0.98),
+      ny: rng(0.02, 0.98),
+      x:  -1,
+      y:  -1,
+      lag:        rng(0.022, 0.044),
+      rx:         rng(110, 240),
+      ry:         rng(75, 165),
+      rotBase:    rng(0, Math.PI),
+      alpha:      rng(0.08, 0.14),
+      driftAmpX:  rng(30, 70),
+      driftAmpY:  rng(22, 55),
+      driftSpeed: rng(0.00010, 0.00025),
+      driftPhase: rng(0, Math.PI * 2),
+      parallaxW:  rng(0.5, 1.5),
+    }));
+
+    let cxN = 0.5, cyN = 0.5;
+    const hero = canvas.parentElement;
+
+    hero.addEventListener('mousemove', e => {
+      const r = canvas.getBoundingClientRect();
+      cxN = (e.clientX - r.left) / r.width;
+      cyN = (e.clientY - r.top)  / r.height;
+    });
+    hero.addEventListener('touchmove', e => {
+      e.preventDefault();
+      const r = canvas.getBoundingClientRect();
+      cxN = (e.touches[0].clientX - r.left) / r.width;
+      cyN = (e.touches[0].clientY - r.top)  / r.height;
+    }, { passive: false });
+
+    let smoothCxN = 0.5, smoothCyN = 0.5;
+
+    function loop(t) {
+      const W = canvas.width, H = canvas.height;
+      const dark = html.getAttribute('data-theme') === 'dark';
+
+      smoothCxN += (cxN - smoothCxN) * 0.08;
+      smoothCyN += (cyN - smoothCyN) * 0.08;
+
+      const pxOff = (smoothCxN - 0.5) * 300;
+      const pyOff = (smoothCyN - 0.5) * 200;
+
+      ctx.fillStyle = dark ? '#0B1C35' : '#F4EFE5';
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+
+      for (const p of patches) {
+        const driftX = Math.sin(t * p.driftSpeed + p.driftPhase)        * p.driftAmpX;
+        const driftY = Math.cos(t * p.driftSpeed * 0.71 + p.driftPhase) * p.driftAmpY;
+
+        const tx = p.nx * W + driftX + pxOff * p.parallaxW;
+        const ty = p.ny * H + driftY + pyOff * p.parallaxW;
+
+        if (p.x < 0) { p.x = tx; p.y = ty; }
+
+        p.x += (tx - p.x) * p.lag;
+        p.y += (ty - p.y) * p.lag;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotBase + t * 0.000025);
+
+        // Dark mode patches drawn ~40% larger
+        const scale = dark ? 1.4 : 1.0;
+        const drawRx = p.rx * scale;
+        const drawRy = p.ry * scale;
+
+        const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, drawRx);
+
+        if (dark) {
+          // Cool blue moonlight patches
+          grad.addColorStop(0,    `rgba(90, 155, 215, ${p.alpha * 0.72})`);
+          grad.addColorStop(0.42, `rgba(65, 120, 190, ${p.alpha * 0.36})`);
+          grad.addColorStop(1,    'rgba(40, 90, 160, 0)');
+        } else {
+          // Warm cream sunlight patches
+          grad.addColorStop(0,    `rgba(255, 252, 232, ${p.alpha * 0.72})`);
+          grad.addColorStop(0.42, `rgba(255, 250, 225, ${p.alpha * 0.36})`);
+          grad.addColorStop(1,    'rgba(255, 248, 218, 0)');
+        }
+
+        ctx.fillStyle = grad;
+        ctx.scale(1, drawRy / drawRx);
+        ctx.beginPath();
+        ctx.arc(0, 0, drawRx, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      ctx.restore();
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+  })();
+  </script>
+</body>
+</html>
