@@ -24,11 +24,11 @@
     html[data-theme="dark"] {
       --paper:       #0B1C35;
       --ink:         #E4DCCC;
-      --blue:        #82BDD4;
+      --blue:        #9AACB8;
       --line:        rgba(228, 220, 204, 0.08);
       --halo:        rgba(11, 28, 53, 0.9);
-      --photo-ring:  rgba(130, 189, 212, 0.25);
-      --photo-glow:  rgba(72, 130, 195, 0.38);
+      --photo-ring:  rgba(154, 172, 184, 0.2);
+      --photo-glow:  rgba(100, 130, 160, 0.3);
     }
 
     html { scroll-behavior: smooth; }
@@ -351,6 +351,29 @@
       to   { transform: scaleX(1);   opacity: 0.40; }
     }
 
+    /* ── Hamburger menu (hidden on desktop) ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      z-index: 600;
+    }
+    .hamburger span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.3s, opacity 0.3s, background 0.55s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
     /* ── Narrow screens ── */
     @media (max-width: 720px) {
       /* Hide custom cursor on mobile */
@@ -363,18 +386,50 @@
       /* Fix nav for mobile */
       nav {
         padding: 1rem 1.5rem;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        background: rgba(244, 239, 229, 0.92);
+        background: rgba(244, 239, 229, 0.95);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
       }
       html[data-theme="dark"] nav {
-        background: rgba(11, 28, 53, 0.92);
+        background: rgba(11, 28, 53, 0.95);
       }
-      .nav-right { gap: 1.5rem; }
-      .nav-links { gap: 1.2rem; }
-      .nav-links a { font-size: 0.6rem; letter-spacing: 0.15em; }
+      .nav-right { gap: 1rem; }
+
+      /* Show hamburger on mobile */
+      .hamburger { display: flex; }
+
+      /* Hide nav links by default, show as dropdown when open */
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(244, 239, 229, 0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 1.5rem;
+        gap: 0;
+        border-top: 1px solid var(--line);
+      }
+      html[data-theme="dark"] .nav-links {
+        background: rgba(11, 28, 53, 0.98);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid var(--line);
+        opacity: 1;
+        animation: none;
+      }
+      .nav-links li:last-child { border-bottom: none; }
+      .nav-links a {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        opacity: 0.6;
+      }
+      .nav-links a:hover { opacity: 1; }
 
       .hero-inner {
         flex-direction: column-reverse;
@@ -422,7 +477,7 @@
   <nav>
     <a class="logo" href="index.html">Annabel Ng</a>
     <div class="nav-right">
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-links">
         <li><a href="about.html">About</a></li>
         <li><a href="resources.html">Resources</a></li>
         <li><a href="mailto:annabelng@berkeley.edu">Contact</a></li>
@@ -445,6 +500,12 @@
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
+      </button>
+      <!-- Hamburger menu button (mobile only) -->
+      <button class="hamburger" id="hamburger" title="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
     </div>
   </nav>
@@ -508,6 +569,23 @@
     const next = dark ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
+  });
+
+  // ── Hamburger menu toggle ──────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+
+  // Close menu when clicking a link
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
   });
 
   // ── Custom cursor ─────────────────────────────────────
