@@ -385,7 +385,7 @@
 
       /* Fix nav for mobile */
       nav {
-        padding: 1rem 1.5rem;
+        padding: 1rem 2rem;
         background: rgba(244, 239, 229, 0.95);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
@@ -434,16 +434,17 @@
       .hero-inner {
         flex-direction: column;
         justify-content: center;
-        align-items: center;
-        padding: 5rem 1.5rem 2rem;
+        align-items: flex-start;
+        padding: 2rem 2rem 2rem;
         gap: 0;
         overflow-y: auto;
       }
       .hero-left {
-        width: min(100%, 420px);
+        width: 100%;
         align-items: flex-start;
       }
-      .hero-name { font-size: clamp(2.8rem, 10vw, 5rem); }
+      .hero-name { font-size: clamp(4rem, 16vw, 7rem); }
+      .hero-bio p { font-size: 0.95rem; }
       .hero-right { display: none; }
       .hero-hint { display: none; }
       footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
@@ -519,9 +520,9 @@
           Annabel
           <em>Ng</em>
         </h1>
-        <p class="hero-desc">Machine Learning &nbsp;·&nbsp; Design</p>
+        <p class="hero-desc">Engineering &nbsp;·&nbsp; Design &nbsp;·&nbsp; Graphics</p>
         <div class="hero-bio">
-          <p>Software engineer at YouTube and UC Berkeley EECS graduate. Interested in machine learning, computer vision, and building things that are both technically interesting and beautifully designed.</p>
+          <p>Software engineer at YouTube and UC Berkeley EECS graduate. Interested in machine learning, computer vision, and building things that feel both technically sound and genuinely considered.</p>
           <ul class="bio-links">
             <li><a href="https://github.com/annabelng" target="_blank">GitHub</a></li>
             <li><a href="https://www.linkedin.com/in/annabelng22/" target="_blank">LinkedIn</a></li>
@@ -548,11 +549,10 @@
 
   <!-- ── FOOTER ── -->
   <footer>
-    <span>© 2025 Annabel Ng</span>
+    <span>© 2026 Annabel Ng</span>
     <ul class="footer-links">
       <li><a href="https://github.com/annabelng" target="_blank">GitHub</a></li>
       <li><a href="https://www.linkedin.com/in/annabelng22/" target="_blank">LinkedIn</a></li>
-      <li><a href="mailto:annabelng@berkeley.edu">annabelng@berkeley.edu</a></li>
     </ul>
   </footer>
 
@@ -636,7 +636,7 @@
       rx:         rng(110, 240),
       ry:         rng(75, 165),
       rotBase:    rng(0, Math.PI),
-      alpha:      rng(0.08, 0.14),
+      alpha:      rng(0.10, 0.17),
       driftAmpX:  rng(30, 70),
       driftAmpY:  rng(22, 55),
       driftSpeed: rng(0.00010, 0.00025),

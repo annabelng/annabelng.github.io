@@ -415,17 +415,88 @@
       opacity: 0.55;
     }
 
+    /* ── Hamburger menu (hidden on desktop) ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      z-index: 600;
+    }
+    .hamburger span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.3s, opacity 0.3s, background 0.55s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
     @media (max-width: 640px) {
       nav {
-        padding: 1.4rem 1.5rem;
+        padding: 1rem 2rem;
       }
+      .nav-right { gap: 1rem; }
 
-      main {
-        padding: 4rem 1.5rem 6rem;
+      /* Show hamburger on mobile */
+      .hamburger { display: flex; }
+
+      /* Hide nav links by default, show as dropdown when open */
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(244, 239, 229, 0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 1.5rem;
+        gap: 0;
+        border-top: 1px solid var(--line);
+      }
+      html[data-theme="dark"] .nav-links {
+        background: rgba(11, 28, 53, 0.98);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-links li:last-child { border-bottom: none; }
+      .nav-links a {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        opacity: 0.6;
+      }
+      .nav-links a:hover { opacity: 1; }
+
+      .page-hero {
+        height: auto;
+        min-height: unset;
+        padding: 7rem 0 2rem;
       }
 
       .page-hero-content {
-        padding: 0 1.5rem;
+        position: relative;
+        bottom: unset;
+        padding: 0 2rem;
+      }
+
+      main {
+        max-width: 100%;
+        padding: 3rem 2rem 6rem;
+      }
+
+      .intro p {
+        font-size: 0.95rem;
       }
 
       .guide-item {
@@ -436,7 +507,29 @@
       .guide-link {
         margin-left: 0;
       }
+
+      footer {
+        padding: 1.5rem 2rem;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      .footer-links { justify-content: center; }
     }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.67rem;
+      letter-spacing: 0.07em;
+      opacity: 0.28;
+      border-top: 1px solid var(--line);
+      transition: border-color 0.55s ease;
+    }
+    .footer-links { list-style: none; display: flex; gap: 1.8rem; }
+    .footer-links a { color: inherit; text-decoration: none; }
   </style>
 </head>
 
@@ -448,7 +541,7 @@
   <nav>
     <a class="logo" href="index.html">Annabel Ng</a>
     <div class="nav-right">
-      <ul class="nav-links">
+      <ul class="nav-links" id="nav-links">
         <li><a href="about.html">About</a></li>
         <li><a href="resources.html" class="active">Resources</a></li>
         <li><a href="mailto:annabelng@berkeley.edu">Contact</a></li>
@@ -468,6 +561,12 @@
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
         </svg>
+      </button>
+      <!-- Hamburger menu button (mobile only) -->
+      <button class="hamburger" id="hamburger" title="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
     </div>
   </nav>
@@ -571,12 +670,11 @@
 
   </main>
 
-  <footer
-    style="padding: 2rem 3.5rem; display: flex; justify-content: space-between; font-size: 0.67rem; letter-spacing: 0.07em; opacity: 0.28; border-top: 1px solid var(--line);">
-    <span>© 2025 Annabel Ng</span>
-    <ul style="list-style:none;display:flex;gap:1.8rem;">
-      <li><a href="https://github.com" style="color:inherit;text-decoration:none;">GitHub</a></li>
-      <li><a href="https://linkedin.com" style="color:inherit;text-decoration:none;">LinkedIn</a></li>
+  <footer>
+    <span>© 2026 Annabel Ng</span>
+    <ul class="footer-links">
+      <li><a href="https://github.com/annabelng" target="_blank">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/annabelng22/" target="_blank">LinkedIn</a></li>
     </ul>
   </footer>
 
@@ -586,6 +684,23 @@
       const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
+    });
+
+    // ── Hamburger menu toggle ──────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+
+    // Close menu when clicking a link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
     });
 
     // ── Custom cursor ─────────────────────────────────────
