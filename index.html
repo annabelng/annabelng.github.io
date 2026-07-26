@@ -627,16 +627,16 @@
 
     const rng = (lo, hi) => lo + Math.random() * (hi - lo);
 
-    const patches = Array.from({ length: 18 }, () => ({
+    const patches = Array.from({ length: 16 }, () => ({
       nx: rng(0.02, 0.98),
       ny: rng(0.02, 0.98),
       x:  -1,
       y:  -1,
       lag:        rng(0.022, 0.044),
-      rx:         rng(110, 240),
-      ry:         rng(75, 165),
+      rx:         rng(140, 280),
+      ry:         rng(95, 190),
       rotBase:    rng(0, Math.PI),
-      alpha:      rng(0.12, 0.19),
+      alpha:      rng(0.11, 0.17),
       driftAmpX:  rng(30, 70),
       driftAmpY:  rng(22, 55),
       driftSpeed: rng(0.00010, 0.00025),
@@ -706,10 +706,10 @@
           grad.addColorStop(0.42, `rgba(65, 120, 190, ${p.alpha * 0.36})`);
           grad.addColorStop(1,    'rgba(40, 90, 160, 0)');
         } else {
-          // Warm cream sunlight patches
-          grad.addColorStop(0,    `rgba(255, 252, 232, ${p.alpha * 0.72})`);
-          grad.addColorStop(0.42, `rgba(255, 250, 225, ${p.alpha * 0.36})`);
-          grad.addColorStop(1,    'rgba(255, 248, 218, 0)');
+          // Soft off-white light patches
+          grad.addColorStop(0,    `rgba(255, 253, 245, ${p.alpha * 0.55})`);
+          grad.addColorStop(0.35, `rgba(255, 252, 242, ${p.alpha * 0.25})`);
+          grad.addColorStop(1,    'rgba(255, 251, 240, 0)');
         }
 
         ctx.fillStyle = grad;
